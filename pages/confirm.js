@@ -10,8 +10,8 @@ const Confirm = () => {
     const router = useRouter()
     const {pickup, dropoff} = router.query
 
-    const [ pickupCoordinates, setPickupCoordinates ] = useState()
-    const [ dropoffCoordinates, setDropoffCoordinates ] = useState()
+    const [ pickupCoordinates, setPickupCoordinates ] = useState([0, 0])
+    const [ dropoffCoordinates, setDropoffCoordinates ] = useState([0, 0])
     
     const getPickupCoordinates = (pickup) => {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?` + 
@@ -61,7 +61,10 @@ const Confirm = () => {
 
         <RideContainer>
 
-            <RideSelector />
+            <RideSelector
+            pickupCoordinates={pickupCoordinates}
+            dropoffCoordinates={dropoffCoordinates}
+             />
 
             <ConfirmButtonContainer>
             <ConfirmButton>
@@ -81,11 +84,11 @@ const Wrapper = tw.div`
 flex flex-col h-screen
 `
 const ButtonContainer = tw.div`
-bg-red-600 px-4 rounded-full flex-1/2
+rounded-full absolute bg-white shadow-md top-4 left-4 z-10 
 `
 
 const BackButton = tw.img`
-h-12 rounded-full transform hover:scale-105 transition cursor-pointer
+h-full object-contain rounded-full transform hover:scale-105 transition cursor-pointer
 `
 
 const RideContainer = tw.div`
