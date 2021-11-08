@@ -1,8 +1,14 @@
-import React from 'react'
+import {useState} from 'react'
 import tw from "tailwind-styled-components"
 import Link from 'next/link'
 
 const Search = () => {
+
+    const [ pickup, setPickup ] = useState("");
+    const [ dropoff, setDropoff ] = useState("");
+
+
+
     return (
         <Wrapper>
             {/* Button Container */}
@@ -20,8 +26,16 @@ const Search = () => {
                     <Square src="https://img.icons8.com/windows/50/000000/square-full.png"/>
                 </FromToIcons>
                 <InputBoxes>
-                <Input placeholder="Enter pickup location"/> 
-                <Input placeholder="Where to?"/> 
+                <Input 
+                placeholder="Enter pickup location"
+                value={pickup}
+                onChange={(e)=> setPickup(e.target.value)}
+                /> 
+                <Input 
+                placeholder="Where to?"
+                value={dropoff}
+                onChange={(e)=> setDropoff(e.target.value)}
+                /> 
                 </InputBoxes>
                <PlusIcon src="https://img.icons8.com/ios/50/000000/plus-math.png" /> 
             </InputContainer>
@@ -34,13 +48,19 @@ const Search = () => {
 
             {/* Confirm Location */}
 
-            <Link href="/">
+            <Link href={{
+                pathname:"/confirm",
+                query: {
+                    pickup: pickup,
+                    dropoff: dropoff
+                }
+
+            }}>
             <ConfirmLocation>
-                <ActionButton>
                Confirm Locations
-               </ActionButton>
            </ConfirmLocation>
            </Link>
+
         </Wrapper>
     )
 }
@@ -56,7 +76,7 @@ bg-white px-4
 `
 
 const BackButton = tw.img`
-h-12  transform hover:scale-105 transition
+h-12  transform hover:scale-105 transition cursor-pointer
 `
 const InputContainer = tw.div`
 bg-white flex items-center px-4 mb-2
@@ -97,14 +117,8 @@ const StarIcon = tw.img`
 bg-gray-400 w-10 h-10 p-2 rounded-full mr-2
 `
 const ConfirmLocation = tw.div`
-flex 
+bg-black text-white text-center  mt-2 mx-4 px-4 py-3 text-2xl transform hover:scale-105 transition  cursor-pointer
 `
-
-const ActionButton = tw.div`
-flex bg-black flex-1 m-4 h-10 items-center justify-center transform hover:scale-105 transition text-white
-`
-
-
 
 
 
